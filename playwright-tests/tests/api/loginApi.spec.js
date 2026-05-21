@@ -1,5 +1,5 @@
-const { test, expect } = require('@playwright/test');
-const { testUser, nonExistingUser } = require('../../data/users');
+const { test, expect } = require('../../utilities/fixtures.js');
+const { testUser, nonExistingUser } = require('../../data/users.js');
 
 test('should log in', async ({ request }) => {
   const loginResponse = await request.post('/login', {

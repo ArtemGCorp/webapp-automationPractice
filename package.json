@@ -21,7 +21,7 @@
     "@types/express-serve-static-core": "4.17.2"
   },
   "engines": {
-    "node": ">=14.0.0 <18.0.0"
+    "node": ">=14.0.0 <18.0.1"
   },
   "workspaces": [
     "cypress-tests",

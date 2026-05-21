@@ -1,8 +1,10 @@
-export const testUser = { 
+const testUser = { 
   username: 'Katharina_Bernier', 
   password: 's3cret', 
   id: 't45AiwidW' };
-export const nonExistingUser = {
+const nonExistingUser = {
   username: 'invalid_username',
   password: 'invalid_password',
 };
+
+module.exports = { testUser, nonExistingUser };

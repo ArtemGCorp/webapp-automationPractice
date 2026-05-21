@@ -1,5 +1,6 @@
-export async function getSessionId(request, user) {
-  const loginResponse = await request.post('/login', {
+async function getSessionId(request, user) {
+
+  const loginResponse = await request.post('http://localhost:3001/login', {
     data: {
       username: user.username,
       password: user.password,
@@ -7,14 +8,19 @@ export async function getSessionId(request, user) {
     },
   });
   const sessionId = loginResponse.headers()['set-cookie'].split(';')[0];
+  
   return sessionId;
 }
 
-export async function loggedInUserApiContext(playwright, request, user) {
+async function loggedInUserApiContext(playwright, request, user) {
   const sessionId = await getSessionId(request, user);
-  playwright.request.newContext({
+
+  return await playwright.request.newContext({
+    // baseURL: 'http://localhost:3001',
     extraHTTPHeaders: {
       Cookie: sessionId,
     },
   });
 }
+
+module.exports = {getSessionId, loggedInUserApiContext };

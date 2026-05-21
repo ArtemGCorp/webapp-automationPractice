@@ -1,13 +1,8 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('../../utilities/fixtures.js');
 const { testUser } = require('../../data/users');
-const { loggedInUserApiContext } = require('../../utilities/apiUtilities');
 
-test.beforeAll(async ({ playwright, request }) => {
-  await loggedInUserApiContext(playwright, request, testUser);
-});
-
-test('should create transaction payment', async ({ request }) => {
-  const paymentResponse = await request.post('/transactions', {
+test('should create transaction payment', async ({ authRequest }) => {
+  const paymentResponse = await authRequest.post('/transactions', {
     data: {
       amount: '100',
       description: 'description',
