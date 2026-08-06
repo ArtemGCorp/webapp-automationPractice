@@ -1,3 +1,6 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib"
+  // TypeScript is hoisted to the repo-root node_modules by Yarn workspaces,
+  // so this path has to climb out of the webapp folder.
+  "js/ts.tsdk.path": "../node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true
 }

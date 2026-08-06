@@ -21,6 +21,14 @@ node_modules
 # Log files
 *.log
 
-## Cypress
+## Playwright
 **/screenshots
-**/mochawesome-report
+**/test-results
+**/playwright-report
+
+
+.github/agents/
+.github/workflows/copilot-setup-steps.yml
+.nvmrc
+.vscode/mcp.json
+.vscode/settings.json

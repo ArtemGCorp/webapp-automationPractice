@@ -4,17 +4,22 @@ End-to-end testing is an increasingly popular way to test applications against c
 
 The move to cloud computing has highlighted the importance of Application Programming Interfaces. API testing is a necessity with the rise in cloud applications and interconnect platforms.
 
-The purpose of this project is to learn and create E2E and API Testing frameworks with Cypress and Playwright
+The purpose of this project is to learn and create E2E and API Testing frameworks with Playwright
 
 ## Overview
 
-This project is a mono repo created using [Yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/). It includes `webapp`, containing the React app, `cypress` containing the Cypress scripts for end-to-end testing, `playwright` containing Playwright scripts for end-to-end testing.
+This project is a mono repo created using [Yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/). It includes `webapp`, containing the React app, `playwright-tests`, containing the Playwright E2E and API scripts, and `supertest`, containing the Supertest API scripts.
 
 ## Prerequisites
 
-- Node version: 14.17
-- NPM version: 6.14.13
+- Node version: 24.x (see [.nvmrc](.nvmrc)); Node 20 or newer is required
 - Yarn version: 1.22.19
+
+> **Note on Node 17+:** the webapp is built with Create React App 4 / webpack 4, which calls
+> the MD4 hash removed from OpenSSL 3's default provider. The `react-scripts` scripts in
+> [webapp/package.json](webapp/package.json) therefore run with
+> `NODE_OPTIONS=--openssl-legacy-provider`. Nothing extra is needed on your side — just don't
+> drop that flag when editing those scripts.
 
 ## VSCode
 
@@ -43,24 +48,6 @@ Start Web application with [Run the app](./webapp/README.md#Run-the-app).
 
 ```shell
 yarn webapp:start
-```
-
-## Cypress
-
-**Cypress** is a Front end automation framework.
-
-Extensive documentation can be found [here](https://docs.cypress.io/guides/overview/why-cypress)
-
-### Execute Cypress E2E tets
-
-```shell
-yarn cypress:e2e
-```
-
-### Execute Cypress API tets
-
-```shell
-yarn cypress:api
 ```
 
 ## PlayWright
@@ -95,7 +82,7 @@ yarn supertest:api
 
 ## Tasks
 
-In this section, you can find tasks we expect in your assignment from the **Automation Tests** standpoint. We expect you to cover test scenarios specified **Tasks** folder using Cypress and Playwright frameworks.
+In this section, you can find tasks we expect in your assignment from the **Automation Tests** standpoint. We expect you to cover test scenarios specified **Tasks** folder using the Playwright framework.
 
 - E2E Automation Tests: [Tasks](./tasks/end-to-end.md)
 - API Automation Tests: [Tasks](./tasks/api.md)

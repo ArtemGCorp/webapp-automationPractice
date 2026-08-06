@@ -64,7 +64,7 @@ The app is bundled with [example data](./data/database.json) (`data/database.jso
 
 ### Prerequisites
 
-The only requirement for this project is to have [Node.js](https://nodejs.org/en/) **version 14** installed on your machine. Refer to the [.node-version](./.node-version) file for the exact version.
+The only requirement for this project is to have [Node.js](https://nodejs.org/en/) **version 20 or newer** installed on your machine (24.x is what CI runs). Refer to the [.nvmrc](../.nvmrc) file at the repo root for the exact version.
 
 TypeScript will be added as a local dependency to the project, so no need to install it.
 
@@ -92,49 +92,28 @@ yarn dev
 > If you want to change the default ports, you can do so by modifying `PORT` and `REACT_APP_BACKEND_PORT` variables in `.env` file.
 > However, make sure the modified port numbers in `.env` are not commited into Git since the CI environments still expect the application to run on the default ports.
 
-### Start Cypress
+### Run the tests
 
-```shell
-yarn cypress:open
-```
-
-> 🚩 **Note**
->
-> If you have changed the default ports, then you need to update Cypress configuration file (`cypress.json`) locally.
-> There are three properties that you need to update in `cypress.json`: `baseUrl`, `apiUrl`, and `url`.
-> The port number in `baseUrl` corresponds to `PORT` variable in `.env` file. Similarly, the port number in `apiUrl` and `url` correspond to `REACT_APP_BACKEND_PORT`.
-> For example, if you have changed `PORT` to `13000` and `REACT_APP_BACKEND_PORT` to `13001` in `.env` file, then your `cypress.json` should look similar to the following snippet:
->
-> ```json
-> {
->   "baseUrl": "http://localhost:13000",
->   /* Omitted for brevity */
->   "env": {
->     "apiUrl": "http://localhost:13001",
->     /* Omitted for brevity */
->     "codeCoverage": {
->       "url": "http://localhost:13001/__coverage__"
->     }
->   },
->   "experimentalStudio": true
-> }
-> ```
->
-> Avoid committing the modified `cypress.json` into Git since the CI environments still expect the application to be run on default ports.
+The end-to-end and API suites live outside this workspace, in
+[playwright-tests](../playwright-tests) and [supertest](../supertest). Start the app first, then
+run them from the repo root with `yarn playwright:e2e`, `yarn playwright:api`, or
+`yarn supertest:api`. If you change the default ports, update `baseURL` in the Playwright
+configs to match.
 
 ## Tests
 
-| Type | Location                                 |
-| ---- | ---------------------------------------- |
-| api  | [cypress/tests/api](./cypress/tests/api) |
-| ui   | [cypress/tests/ui](./cypress/tests/ui)   |
-| unit | [`src/__tests__`](./src/__tests__)       |
+| Type | Location                                                    |
+| ---- | ----------------------------------------------------------- |
+| e2e  | [playwright-tests/tests/e2e](../playwright-tests/tests/e2e) |
+| api  | [playwright-tests/tests/api](../playwright-tests/tests/api) |
+| api  | [supertest/tests](../supertest/tests)                       |
+| unit | [`src/__tests__`](./src/__tests__)                          |
 
 ## Database
 
 - The local JSON database is located in [data/database.json](./data/database.json) and is managed with [lowdb].
 
-- The database is [reseeded](./data/database-seed.json) each time the application is started (via `yarn dev`). Database seeding is done in between each [Cypress End-to-End test](./cypress/tests).
+- The database is [reseeded](./data/database-seed.json) each time the application is started (via `yarn dev`).
 
 - Updates via the React frontend are sent to the [Express][express] server and handled by a set of [database utilities](backend/database.ts)
 
@@ -154,20 +133,11 @@ yarn cypress:open
 | start          | Starts backend and frontend                                                                                                                                                       |
 | types          | Validates types                                                                                                                                                                   |
 | db:seed        | Generates fresh database seeds for json files in /data                                                                                                                            |
-| start:empty    | Starts backend, frontend and Cypress with empty database seed                                                                                                                     |
+| start:empty    | Starts backend and frontend with empty database seed                                                                                                                             |
 | tsnode         | Customized ts-node command to get around react-scripts restrictions                                                                                                               |
 | list:dev:users | Provides id and username for users in the dev database                                                                                                                            |
 
 For a complete list of scripts see [package.json](./package.json)
-
-## Code Coverage Report
-
-The Cypress Real-World App uses the [@cypress/code-coverage](https://github.com/cypress-io/code-coverage) plugin to generate code coverage reports for the app frontend and backend.
-
-To generate a code coverage report:
-
-1. Run `yarn cypress:run --env coverage=true` and wait for the test run to complete.
-2. Once the test run is complete, you can view the report at `coverage/index.html`.
 
 ## 3rd Party Authentication Providers
 
@@ -179,9 +149,7 @@ A [guide has been written with detail around adapting the RWA](http://on.cypress
 
 Prerequisites include an Auth0 account and a Tenant configured for use with a SPA. Environment variables from Auth0 are to be placed in the [.env](./.env).
 
-Start the application with `yarn dev:auth0` and run Cypress with `yarn cypress:open`.
-
-The only passing spec on this branch will be the [auth0 spec](./cypress/tests/ui-auth-providers/auth0.spec.ts); all others will fail.
+Start the application with `yarn dev:auth0`.
 
 ### Okta
 
@@ -189,9 +157,7 @@ A [guide has been written with detail around adapting the RWA](http://on.cypress
 
 Prerequisites include an [Okta][okta] account and [application configured for use with a SPA][oktacreateapp]. Environment variables from [Okta][okta] are to be placed in the [.env](./.env).
 
-Start the application with `yarn dev:okta` and run Cypress with `yarn cypress:open`.
-
-The **only passing spec on this branch** will be the [okta spec](./cypress/tests/ui-auth-providers/okta.spec.ts); all others will fail.
+Start the application with `yarn dev:okta`.
 
 ### Amazon Cognito
 
@@ -199,9 +165,7 @@ A [guide has been written with detail around adapting the RWA](http://on.cypress
 
 Prerequisites include an [Amazon Cognito][cognito] account. Environment variables from [Amazon Cognito][cognito] are provided by the [AWS Amplify CLI][awsamplify].
 
-Start the application with `yarn dev:cognito` and run Cypress with `yarn cypress:open`.
-
-The **only passing spec on this branch** will be the [cognito spec](./cypress/tests/ui-auth-providers/cognito.spec.ts); all others will fail.
+Start the application with `yarn dev:cognito`.
 
 ### Google
 
@@ -209,9 +173,7 @@ A [guide has been written with detail around adapting the RWA](https://docs.cypr
 
 Prerequisites include an [Google][google] account. Environment variables from [Google][google] are to be placed in the [.env](./.env).
 
-Start the application with `yarn dev:google` and run Cypress with `yarn cypress:open`.
-
-The **only passing spec** when run with `yarn dev:google` will be the [google spec](./cypress/tests/ui-auth-providers/google.spec.ts); all others will fail.
+Start the application with `yarn dev:google`.
 
 ## License
 

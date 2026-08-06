@@ -4,8 +4,6 @@ const { getSessionId } = require('../utilities/apiUtilities');
 
 exports.test = base.extend({
   authRequest: async ({ playwright }, use) => {
-    console.log("in a fixture---------------------------------");
-
     const loginContext = await playwright.request.newContext();
     const sessionId = await getSessionId(loginContext, testUser);
     await loginContext.dispose();

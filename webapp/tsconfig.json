@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -15,14 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true,
-    "types": ["cypress"]
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*.cy.{js,ts,jsx,tsx}",
-    "scripts",
-    "backend",
-    "src/__tests__",
-    "cypress/support/component.ts"
-  ]
+  "include": ["scripts", "backend", "src/__tests__"]
 }

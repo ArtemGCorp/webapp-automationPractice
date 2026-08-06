@@ -15,7 +15,7 @@ export const getBackendPort = async () => {
 
       console.log(
         chalk.red(
-          `Failed to start the backend server on port ${backendPort}. \n Starting the backend server on port ${_port}. \n Please update REACT_APP_BACKEND_PORT in the .env file and 'apiUrl' in cypress.json to ${_port}.`
+          `Failed to start the backend server on port ${backendPort}. \n Starting the backend server on port ${_port}. \n Please update REACT_APP_BACKEND_PORT in the .env file and 'baseURL' in the Playwright configs to ${_port}.`
         )
       );
       return _port;

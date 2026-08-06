@@ -13,7 +13,7 @@
     "url": "https://github.com/cypress-io/cypress-realworld-app/issues"
   },
   "engines": {
-    "node": ">=12.22.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@auth0/auth0-react": "1.9.0",
@@ -50,12 +50,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.10.0-dev.1",
-    "@cypress/instrument-cra": "1.4.0",
-    "@cypress/react": "^5.10.0",
-    "@cypress/webpack-dev-server": "^1.6.0",
     "@faker-js/faker": "6.1.2",
-    "@percy/cypress": "2.3.4",
     "@types/bcryptjs": "2.4.2",
     "@types/bluebird": "3.5.36",
     "@types/connect-flash": "0.0.37",
@@ -93,10 +88,8 @@
     "concurrently": "7.1.0",
     "cors": "2.8.5",
     "cross-env": "7.0.3",
-    "cypress": "^10.0.3",
     "dotenv": "16.0.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-prettier": "4.0.0",
     "express": "4.17.3",
     "express-graphql": "0.12.0",
@@ -107,19 +100,16 @@
     "fuse.js": "6.5.3",
     "graphql": "16.4.0",
     "graphql-tools": "8.2.7",
-    "istanbul-lib-coverage": "3.2.0",
     "json": "11.0.0",
     "jwks-rsa": "2.0.5",
     "lowdb": "1.0.0",
     "morgan": "1.10.0",
     "ncp": "2.0.0",
     "nodemon": "2.0.15",
-    "nyc": "15.1.0",
     "passport": "0.6.0",
     "passport-local": "1.0.0",
     "prettier": "2.6.2",
     "react-scripts": "4.0.3",
-    "start-server-and-test": "1.14.0",
     "ts-node": "10.7.0",
     "typescript": "4.6.3"
   },
@@ -142,29 +132,19 @@
     "start": "cross-env NODE_ENV=development concurrently yarn:start:react yarn:start:api",
     "start:ci": "cross-env NODE_ENV=test concurrently yarn:start:react:proxy-server yarn:start:api",
     "prestart:ci": "yarn predev:cognito:ci",
-    "start:react": "react-scripts -r @cypress/instrument-cra start",
+    "start:react": "cross-env NODE_OPTIONS=\"--no-warnings --openssl-legacy-provider\" react-scripts start",
     "start:empty": "cross-env NODE_ENV=development EMPTY_SEED=true concurrently yarn:start:react yarn:start:api:watch",
     "lint": "eslint",
     "list:dev:users": "cat data/database.json | json -a users | json -a id username",
     "types": "tsc --noEmit",
-    "precypress:open": "yarn predev:cognito:ci",
-    "cypress:open": "cypress open",
-    "cypress:open:mobile": "cypress open --config viewportWidth=375,viewportHeight=667",
-    "cypress:run": "cypress run",
-    "cypress:run:component": "cypress run --component",
-    "cypress:run:mobile": "cypress run --config viewportWidth=375,viewportHeight=667",
-    "test": "yarn cypress:open",
-    "test:headless": "yarn cypress:run",
-    "test:api": "yarn cypress:run --spec 'cypress/tests/api/*'",
+    "test": "yarn test:unit",
     "test:unit": "react-scripts test --runInBand",
     "test:unit:ci": "react-scripts test --watchAll false --ci --runInBand",
-    "test:component:ci": "yarn cypress:run:component",
     "start:api": "yarn tsnode --files backend/app.ts",
     "start:api:watch": "nodemon --exec yarn tsnode --watch 'backend' backend/app.ts",
     "start:react:proxy-server": "yarn tsnode scripts/testServer.ts",
     "prettier": "prettier --write '**/**.{ts,js,tsx}' '*.{json,md,yml}'",
-    "tsnode": "nyc --silent ts-node -P tsconfig.tsnode.json",
-    "tsnode:not-instrumented": "ts-node -P tsconfig.tsnode.json",
+    "tsnode": "ts-node -P tsconfig.tsnode.json",
     "db:seed": "yarn tsnode scripts/generateSeedData",
     "predb:seed:dev": "yarn predev:cognito:ci",
     "db:seed:dev": "ncp ./data/database-seed.json ./data/database.json",
@@ -175,23 +155,18 @@
     "prestart:empty": "yarn db:seed:empty",
     "prebuild": "yarn types",
     "prebuild:ci": "yarn predev:cognito:ci",
-    "build:ci": "react-scripts build",
-    "build": "react-scripts build",
+    "build:ci": "cross-env NODE_OPTIONS=\"--no-warnings --openssl-legacy-provider\" react-scripts build",
+    "build": "cross-env NODE_OPTIONS=\"--no-warnings --openssl-legacy-provider\" react-scripts build",
     "eject": "react-scripts eject",
-    "codesandbox:start:api": "yarn tsnode:not-instrumented --files backend/app.ts",
-    "codesandbox:start": "NODE_ENV=development TSC_COMPILE_ON_ERROR=true concurrently \"react-scripts start\" yarn:start:api:codesandbox"
+    "codesandbox:start:api": "yarn tsnode --files backend/app.ts",
+    "codesandbox:start": "NODE_ENV=development TSC_COMPILE_ON_ERROR=true NODE_OPTIONS=\"--no-warnings --openssl-legacy-provider\" concurrently \"react-scripts start\" yarn:start:api:codesandbox"
   },
   "eslintConfig": {
-    "env": {
-      "cypress/globals": true
-    },
     "extends": [
       "react-app",
-      "plugin:prettier/recommended",
-      "plugin:cypress/recommended"
+      "plugin:prettier/recommended"
     ],
     "plugins": [
-      "cypress",
       "prettier"
     ],
     "rules": {
@@ -214,23 +189,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "percy": {
-    "version": 1,
-    "snapshot": {
-      "widths": [
-        1280
-      ]
-    }
-  },
-  "nyc": {
-    "exclude": [
-      "src/models/*.ts"
-    ],
-    "reporter": [
-      "html",
-      "json"
     ]
   }
 }

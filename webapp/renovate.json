@@ -22,10 +22,6 @@
   "schedule": ["before 3am on the first day of the month"],
   "packageRules": [
     {
-      "packageNames": ["cypress"],
-      "schedule": ["every weekday"]
-    },
-    {
       "packageNames": ["@babel/compat-data"],
       "allowedVersions": "7.9.0"
     },
@@ -97,11 +93,6 @@
       "matchPackageNames": ["aws-sdk", "@aws-amplify/ui-react", "aws-amplify"]
     },
     {
-      "groupName": "Testing / coverage",
-      "matchPackageNames": ["nyc", "istanbul-lib-coverage", "@percy/cypress"],
-      "matchPackagePatterns": ["^cypress/"]
-    },
-    {
       "groupName": "Misc FE libs",
       "matchPackageNames": [
         "uuid",
@@ -120,7 +111,6 @@
         "@faker-js/faker",
         "json",
         "lowdb",
-        "start-server-and-test",
         "ncp",
         "jwks-rsa",
         "husky",

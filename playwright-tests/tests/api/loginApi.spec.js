@@ -9,7 +9,8 @@ test('should log in', async ({ request }) => {
       type: 'LOGIN',
     },
   });
-  expect(loginResponse.ok()).toBeTruthy();
+
+  await expect(loginResponse.ok()).toBeTruthy();
 });
 
 test('should fail log in on invalid credentials', async ({ request }) => {
@@ -20,5 +21,32 @@ test('should fail log in on invalid credentials', async ({ request }) => {
       type: 'LOGIN',
     },
   });
-  expect(loginResponse.ok()).toBeFalsy();
+  await expect(loginResponse.ok()).toBeFalsy();
+  console.log(typeof request);
 });
+
+
+//1 Register
+test('should register', async({request}) => {
+  const registerResponse = await request.post('/users', {
+    data: {
+      "firstName":"qwerty",
+      "lastName":"lastName",
+      "username":"retr0",
+      "password":"12345",
+      "confirmPassword":"12345"
+    },
+  });
+  expect(registerResponse.ok()).toBeTruthy();
+
+  const loginResponse = await request.post('/login', {
+    data: {
+      "type":"LOGIN",
+      "username":"retr0",
+      "password":"12345"
+    },
+  });
+
+  await expect(loginResponse.ok()).toBeTruthy();
+
+})
