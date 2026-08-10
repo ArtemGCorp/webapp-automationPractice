@@ -74,6 +74,17 @@
       "balance": 75369,
       "createdAt": "2020-02-11T21:26:46.510Z",
       "modifiedAt": "2020-05-21T15:15:33.944Z"
+    },
+    {
+      "id": "GifiHtRyi",
+      "uuid": "9a4a2a67-acf7-4a6c-813c-999d9a41233f",
+      "firstName": "Test",
+      "lastName": "User",
+      "username": "testuser_863e1cd5",
+      "password": "$2a$10$hjvDp4dGdwwuewqq9Oaq4.Slv2cLQIjzhMDXv1poFw1XexDFHlORW",
+      "balance": 0,
+      "createdAt": "2026-08-07T12:41:51.433Z",
+      "modifiedAt": "2026-08-07T12:41:51.433Z"
     }
   ],
   "contacts": [
@@ -10038,7 +10049,7 @@
       "userId": "t45AiwidW",
       "likeId": "heOJ8kL74llw",
       "transactionId": "PPrW38YZtQD",
-      "isRead": true,
+      "isRead": false,
       "createdAt": "2019-10-15T13:21:49.772Z",
       "modifiedAt": "2020-05-21T20:08:05.787Z"
     },

@@ -24,5 +24,8 @@
     "playwright-tests",
     "supertest",
     "webapp"
-  ]
+  ],
+  "devDependencies": {
+    "playwright-bdd": "^9.2.0"
+  }
 }
