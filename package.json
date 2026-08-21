@@ -5,10 +5,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "playwright:api": "NODE_OPTIONS=--no-warnings yarn workspace js-internship-playwright test:api",
-    "playwright:e2e": "NODE_OPTIONS=--no-warnings yarn workspace js-internship-playwright test:e2e",
-    "playwright:report": "NODE_OPTIONS=--no-warnings yarn workspace js-internship-playwright report",
-    "postinstall": "NODE_OPTIONS=--no-warnings yarn workspace js-internship-playwright install",
     "supertest:api": "NODE_OPTIONS=--no-warnings yarn workspace js-internship-supertest test",
     "webapp:start": "NODE_OPTIONS=--no-warnings yarn workspace js-internship-web-app start"
   },
@@ -21,7 +17,6 @@
     "node": ">=20.0.0"
   },
   "workspaces": [
-    "playwright-tests",
     "supertest",
     "webapp"
   ],
