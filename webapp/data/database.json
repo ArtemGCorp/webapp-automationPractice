@@ -74,6 +74,17 @@
       "balance": 75369,
       "createdAt": "2020-02-11T21:26:46.510Z",
       "modifiedAt": "2020-05-21T15:15:33.944Z"
+    },
+    {
+      "id": "ee7y2X-Vh",
+      "uuid": "00a721b8-e419-4c5f-a8bf-081b1a17faa3",
+      "firstName": "artem",
+      "lastName": "Johns",
+      "username": "dwdKatharina_Bernier",
+      "password": "$2a$10$jn.EX1j9E26NtxoAq8f6DuGhruc1I8oAHOtkonI1pYoqm0QYKB7Wy",
+      "balance": 0,
+      "createdAt": "2026-08-24T12:27:18.534Z",
+      "modifiedAt": "2026-08-24T12:27:18.534Z"
     }
   ],
   "contacts": [
