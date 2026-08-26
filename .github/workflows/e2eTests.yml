@@ -12,15 +12,12 @@ jobs:
         with:
           repository: ArtemGCorp/automation-practice
           path: tests
-          # GITHUB_TOKEN can't read another private repo; add a PAT secret if it is one.
-          token: ${{ secrets.TESTS_REPO_TOKEN || github.token }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
 
       - name: Start the app
-        # react-scripts fails on warnings when CI is truthy, and Actions sets it.
         env:
           CI: ''
         run: |
