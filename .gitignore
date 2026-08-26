@@ -9,7 +9,7 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
+.qwerty
 # Large media files
 *.mp4
 *.tiff
